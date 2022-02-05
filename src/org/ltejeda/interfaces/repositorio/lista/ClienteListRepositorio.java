@@ -1,6 +1,8 @@
-package org.ltejeda.interfaces.repositorio;
+package org.ltejeda.interfaces.repositorio.lista;
 
 import org.ltejeda.interfaces.modelo.Cliente;
+import org.ltejeda.interfaces.repositorio.AbstractaListRepositorio;
+import org.ltejeda.interfaces.repositorio.Direccion;
 
 import java.util.ArrayList;
 import java.util.List;
