@@ -5,18 +5,7 @@ import org.ltejeda.interfaces.modelo.Cliente;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteListRepositorio implements CompletoRepositorio{
-
-    private List<Cliente> dataSource;
-
-    public ClienteListRepositorio() {
-        this.dataSource = new ArrayList<>();
-    }
-
-    @Override
-    public List<Cliente> listar() {
-        return dataSource;
-    }
+public class ClienteListRepositorio extends AbstractaListRepositorio<Cliente> {
 
     @Override
     public Cliente porId(Integer id) {
@@ -31,20 +20,10 @@ public class ClienteListRepositorio implements CompletoRepositorio{
     }
 
     @Override
-    public void crear(Cliente cliente) {
-        this.dataSource.add(cliente);
-    }
-
-    @Override
     public void editar(Cliente cliente) {
         Cliente c = this.porId(cliente.getId());
         c.setNombre(cliente.getNombre());
         c.setApellido(cliente.getApellido());
-    }
-
-    @Override
-    public void eliminar(Integer id) {
-        this.dataSource.remove(this.porId(id));
     }
 
     @Override
@@ -62,11 +41,6 @@ public class ClienteListRepositorio implements CompletoRepositorio{
         return listaOrdenada;
     }
 
-    @Override
-    public List<Cliente> listar(int desde, int hasta) {
-        return dataSource.subList(desde,hasta);
-    }
-
     public static int ordenar(String campo, Cliente a, Cliente b){
         int resultado = 0;
         switch (campo){
@@ -80,9 +54,4 @@ public class ClienteListRepositorio implements CompletoRepositorio{
         return resultado;
     }
 
-
-    @Override
-    public int total() {
-        return this.dataSource.size();
-    }
 }
