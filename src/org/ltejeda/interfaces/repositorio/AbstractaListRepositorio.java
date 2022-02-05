@@ -1,9 +1,11 @@
 package org.ltejeda.interfaces.repositorio;
 
+import org.ltejeda.interfaces.modelo.BaseEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractaListRepositorio<T> implements OrdenablePaginableCrudRepositorio<T> {
+public abstract class AbstractaListRepositorio<T extends BaseEntity> implements OrdenablePaginableCrudRepositorio<T> {
 
     protected List<T> dataSource;
 
@@ -16,17 +18,17 @@ public abstract class AbstractaListRepositorio<T> implements OrdenablePaginableC
         return dataSource;
     }
 
-    /*@Override
-    public Cliente porId(Integer id) {
-        Cliente resultado = null;
-        for(Cliente cli: dataSource){
+    @Override
+    public T porId(Integer id) {
+        T resultado = null;
+        for(T cli: dataSource){
             if(cli != null && cli.getId().equals(id)){
                 resultado = cli;
                 break;
             }
         }
         return resultado;
-    }*/
+    }
 
     @Override
     public void crear(T t) {
