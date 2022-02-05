@@ -3,6 +3,7 @@ package org.ltejeda.interfaces.repositorio.lista;
 import org.ltejeda.interfaces.modelo.Cliente;
 import org.ltejeda.interfaces.repositorio.AbstractaListRepositorio;
 import org.ltejeda.interfaces.repositorio.Direccion;
+import org.ltejeda.interfaces.repositorio.excepciones.LecturaAccesoDatoException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public class ClienteListRepositorio extends AbstractaListRepositorio<Cliente> {
 
     @Override
-    public void editar(Cliente cliente) {
+    public void editar(Cliente cliente) throws LecturaAccesoDatoException {
         Cliente c = this.porId(cliente.getId());
         c.setNombre(cliente.getNombre());
         c.setApellido(cliente.getApellido());

@@ -1,6 +1,9 @@
 package org.ltejeda.interfaces.repositorio;
 
 import org.ltejeda.interfaces.modelo.BaseEntity;
+import org.ltejeda.interfaces.repositorio.excepciones.EscrituraAccesoDatoException;
+import org.ltejeda.interfaces.repositorio.excepciones.LecturaAccesoDatoException;
+import org.ltejeda.interfaces.repositorio.excepciones.RegistroDuplicadoAccesoDatoException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +22,10 @@ public abstract class AbstractaListRepositorio<T extends BaseEntity> implements 
     }
 
     @Override
-    public T porId(Integer id) {
+    public T porId(Integer id) throws LecturaAccesoDatoException{
+        if(id == null || id <= 0){
+            throw new LecturaAccesoDatoException("Id invalido, debe ser > 0");
+        }
         T resultado = null;
         for(T cli: dataSource){
             if(cli != null && cli.getId().equals(id)){
@@ -27,16 +33,26 @@ public abstract class AbstractaListRepositorio<T extends BaseEntity> implements 
                 break;
             }
         }
+        if(resultado == null){
+            throw new LecturaAccesoDatoException("No existe el registro con id: " + id);
+        }
         return resultado;
     }
 
     @Override
-    public void crear(T t) {
+    public void crear(T t) throws EscrituraAccesoDatoException {
+        if(t == null){
+            throw new EscrituraAccesoDatoException("Error al insertar un objeto null");
+        }
+        if(this.dataSource.contains(t)){
+            throw new RegistroDuplicadoAccesoDatoException("Error: el objeto  con id "
+                    + t.getId() + " existe en el repositorio");
+        }
         this.dataSource.add(t);
     }
 
     @Override
-    public void eliminar(Integer id) {
+    public void eliminar(Integer id) throws LecturaAccesoDatoException{
         this.dataSource.remove(this.porId(id));
     }
 

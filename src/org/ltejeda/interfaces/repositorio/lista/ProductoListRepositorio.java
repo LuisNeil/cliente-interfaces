@@ -3,13 +3,14 @@ package org.ltejeda.interfaces.repositorio.lista;
 import org.ltejeda.interfaces.modelo.Producto;
 import org.ltejeda.interfaces.repositorio.AbstractaListRepositorio;
 import org.ltejeda.interfaces.repositorio.Direccion;
+import org.ltejeda.interfaces.repositorio.excepciones.LecturaAccesoDatoException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductoListRepositorio extends AbstractaListRepositorio<Producto> {
     @Override
-    public void editar(Producto producto) {
+    public void editar(Producto producto) throws LecturaAccesoDatoException {
         Producto p = porId(producto.getId());
         p.setDescripcion(p.getDescripcion());
         p.setPrecio(p.getPrecio());
